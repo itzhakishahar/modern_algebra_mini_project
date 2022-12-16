@@ -51,6 +51,8 @@ class RSA():
         c : The encrypted ciphertext
         """
 
+        c = number_theory_functions.modular_exponent(m, self.public_key[1], self.public_key[0])
+        return c
 
     def decrypt(self, c):
         """
@@ -64,3 +66,5 @@ class RSA():
         -------
         m : The decrypted plaintext
        """
+        m = number_theory_functions.modular_exponent(c, self.public_key[1], self.private_key[0])
+        return m
