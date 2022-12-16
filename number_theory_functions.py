@@ -30,7 +30,11 @@ def extended_gcd(a,b):
     return gcd, x, y
 
 def modular_inverse(a,n):
-    return extended_gcd(a, n)[1]
+    gcd, x, y = extended_gcd(a, n)
+    if gcd == 1:
+        return x % n
+    else: 
+        return None
     """
     Returns the inverse of a modulo n if one exists
 
@@ -47,6 +51,17 @@ def modular_inverse(a,n):
 
 def modular_exponent(a, d, n):
     acc = 1
+    partial_exponent = a
+    while d > 0:
+        if d % 2 == 1:
+            acc = (acc * partial_exponent % n) % n
+        partial_exponent = (partial_exponent * partial_exponent) % n
+        d //= 2
+    return acc
+
+
+    acc = 1
+    partial_exponent = a
     twos_exponent = 1
     while twos_exponent <= d:
         if (twos_exponent & d) != 0:
