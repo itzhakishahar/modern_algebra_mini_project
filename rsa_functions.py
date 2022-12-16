@@ -5,6 +5,14 @@ class RSA():
         self.public_key = public_key
         self.private_key = private_key
 
+
+    @staticmethod
+    def generate_e(a, phi):
+        while True:
+            if number_theory_functions.extended_gcd(a%phi, phi) == 1:
+                return a
+            a = a+1 
+
     @staticmethod
     def generate(digits = 10):
         """
@@ -20,7 +28,15 @@ class RSA():
         * The public key (N,e)
         * The private key (N,d)
         """
-
+        q = number_theory_functions.generate_prime(5)
+        p = number_theory_functions.generate_prime(5)
+        N = q*p
+        phi = (q-1) * (p-1)
+        a = number_theory_functions.randrange(0, phi)
+        e = RSA.generate_e(a, phi)
+        d = number_theory_functions.modular_inverse(e, phi)
+        
+        return RSA((N,e), (N,d))
 
     def encrypt(self, m):
         """
