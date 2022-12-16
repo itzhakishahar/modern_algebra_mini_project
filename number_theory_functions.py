@@ -10,10 +10,8 @@ def extended_euclidean_algorithm(a: int, b: int):
 
 # recursive function to find gcd as well as Bézout’s coefficients - according to table in tutorial
 def recursive_extended_euclidean_algorithm(a: int, b: int, s: list, t: list):
-    
     if get_remainder(a, b) == 0:
         return s[1], t[1], b
-
     return recursive_extended_euclidean_algorithm(b, get_remainder(a, b), [s[1], s[0] - (a // b)*s[1]], [t[1], t[0] - (a // b)*t[1]])
 
 def extended_gcd(a,b):
@@ -48,6 +46,14 @@ def modular_inverse(a,n):
 
 
 def modular_exponent(a, d, n):
+    acc = 1
+    twos_exponent = 1
+    while twos_exponent <= d:
+        if (twos_exponent & d) != 0:
+            acc *= (a ** twos_exponent) % n
+        twos_exponent = twos_exponent << 1
+    return acc % n
+ 
     """
     Returns a to the power of d modulo n
 
