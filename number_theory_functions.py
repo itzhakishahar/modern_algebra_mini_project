@@ -1,18 +1,18 @@
 from random import randrange
 
-# returns y such that  x=y (mod n) and 0 <= y < n.}
-def get_remainder(x: int, n: int):
-    return x % n
-
 # for a,b > 0 returns x, y, gcd(a,b) such that ax + by = gcd(a,b)
 def extended_euclidean_algorithm(a: int, b: int):
     return recursive_extended_euclidean_algorithm(a, b, [1, 0], [0, 1])
 
 # recursive function to find gcd as well as Bézout’s coefficients - according to table in tutorial
 def recursive_extended_euclidean_algorithm(a: int, b: int, s: list, t: list):
-    if get_remainder(a, b) == 0:
+    if a % b == 0:
         return s[1], t[1], b
-    return recursive_extended_euclidean_algorithm(b, get_remainder(a, b), [s[1], s[0] - (a // b)*s[1]], [t[1], t[0] - (a // b)*t[1]])
+    else:
+        return recursive_extended_euclidean_algorithm(b, 
+                                                  a % b, 
+                                                  [s[1], s[0] - (a // b)*s[1]], 
+                                                  [t[1], t[0] - (a // b)*t[1]])
 
 def extended_gcd(a,b):
     """
@@ -26,11 +26,11 @@ def extended_gcd(a,b):
     -------
     (d, x, y): d = gcd(a,b) = a*x + b*y
     """
-    gcd, x, y = extended_euclidean_algorithm(a, b)
-    return x, y, gcd
-
+    x, y, gcd = extended_euclidean_algorithm(a, b)
+    return gcd, x, y
 
 def modular_inverse(a,n):
+    return extended_gcd(a, n)[1]
     """
     Returns the inverse of a modulo n if one exists
 
