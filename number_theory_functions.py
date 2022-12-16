@@ -26,7 +26,8 @@ def extended_gcd(a,b):
     -------
     (d, x, y): d = gcd(a,b) = a*x + b*y
     """
-    return extended_euclidean_algorithm(a, b)
+    x, y, gcd = extended_euclidean_algorithm(a, b)
+    return gcd, x, y
 
 def modular_inverse(a,n):
     return extended_gcd(a, n)[1]
