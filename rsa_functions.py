@@ -8,10 +8,12 @@ class RSA():
 
     @staticmethod
     def generate_e(a, phi):
-        while True:
-            if number_theory_functions.extended_gcd(a%phi, phi) == 1:
+        counter = 0
+        while counter < phi:
+            if number_theory_functions.extended_gcd(a%phi, phi)[0] == 1:
                 return a
             a = a+1 
+            counter = counter+1
 
     @staticmethod
     def generate(digits = 10):
