@@ -10,9 +10,9 @@ def recursive_extended_euclidean_algorithm(a: int, b: int, s: list, t: list):
         return s[1], t[1], b
     else:
         return recursive_extended_euclidean_algorithm(b, 
-                                                  a % b, 
-                                                  [s[1], s[0] - (a // b)*s[1]], 
-                                                  [t[1], t[0] - (a // b)*t[1]])
+                                                      a % b, 
+                                                      [s[1], s[0] - (a // b)*s[1]], 
+                                                      [t[1], t[0] - (a // b)*t[1]])
 
 def extended_gcd(a,b):
     """
@@ -30,11 +30,6 @@ def extended_gcd(a,b):
     return gcd, x, y
 
 def modular_inverse(a,n):
-    gcd, x, y = extended_gcd(a, n)
-    if gcd == 1:
-        return x % n
-    else: 
-        return None
     """
     Returns the inverse of a modulo n if one exists
 
@@ -47,31 +42,14 @@ def modular_inverse(a,n):
     -------
     x: such that (a*x % n) == 1 and 0 <= x < n if one exists, else None
     """
+    gcd, x, y = extended_gcd(a, n)
+    if gcd == 1:
+        return x % n
+    else: 
+        return None
 
 
 def modular_exponent(a, d, n):
-    acc = 1
-    partial_exponent = a
-    while d > 0:
-        if d % 2 == 1:
-            acc = (acc * partial_exponent % n) % n
-        partial_exponent = (partial_exponent * partial_exponent) % n
-        d //= 2
-    return acc
-
-
-    acc = 1
-    partial_exponent = a
-    twos_exponent = 1
-    while twos_exponent <= d:
-        if (twos_exponent & d) != 0:
-            print(f"d: {d}")
-            print(f"before calculate: {acc} {twos_exponent}" )
-            acc = (acc*(a ** twos_exponent)) % n
-        twos_exponent = twos_exponent << 1
-    print("finished while")
-    return acc % n
- 
     """
     Returns a to the power of d modulo n
 
@@ -85,6 +63,14 @@ def modular_exponent(a, d, n):
     -------
     b: such that b == (a**d) % n
     """
+    acc = 1
+    partial_exponent = a
+    while d > 0:
+        if d % 2 == 1:
+            acc = acc * partial_exponent % n
+        partial_exponent = (partial_exponent * partial_exponent) % n
+        d //= 2
+    return acc
 
 def miller_rabin(n):
     """
