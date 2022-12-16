@@ -50,8 +50,11 @@ def modular_exponent(a, d, n):
     twos_exponent = 1
     while twos_exponent <= d:
         if (twos_exponent & d) != 0:
-            acc *= (a ** twos_exponent) % n
+            print(f"d: {d}")
+            print(f"before calculate: {acc} {twos_exponent}" )
+            acc = (acc*(a ** twos_exponent)) % n
         twos_exponent = twos_exponent << 1
+    print("finished while")
     return acc % n
  
     """
