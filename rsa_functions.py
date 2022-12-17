@@ -30,8 +30,8 @@ class RSA():
         * The public key (N,e)
         * The private key (N,d)
         """
-        q = number_theory_functions.generate_prime(5)
-        p = number_theory_functions.generate_prime(5)
+        q = number_theory_functions.generate_prime(digits // 2)
+        p = number_theory_functions.generate_prime((digits // 2) - 1)
         N = q*p
         phi = (q-1) * (p-1)
         a = number_theory_functions.randrange(0, phi)
