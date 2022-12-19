@@ -66,10 +66,10 @@ def modular_exponent(a, d, n):
     acc = 1
     partial_exponent = a
     while d > 0:
-        if d % 2 == 1:
+        if d & 1 == 1:
             acc = acc * partial_exponent % n
         partial_exponent = (partial_exponent * partial_exponent) % n
-        d //= 2
+        d >>= 1
     return acc
 
 def miller_rabin(n):
